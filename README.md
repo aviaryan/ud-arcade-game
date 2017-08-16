@@ -1,5 +1,7 @@
 # Arcade Game
 
+http://aviaryan.in/ud-arcade-game/
+
 A Udacity FEND project.
 
 This is an implementation of Frogger game where user has to go through a lane avoiding the beetles.
