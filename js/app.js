@@ -18,11 +18,22 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x = (this.x + this.speed * dt) % 505;
+    this.checkCollision();
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Enemy.prototype.checkCollision = function() {
+    if (player.y + 131 >= this.y + 90
+        && player.y + 73 <= this.y + 135
+        && player.x + 25 <= this.x + 88
+        && player.x + 76 >= this.x + 11) {
+        console.log('collision');
+        player.reset();
+    }
 };
 
 // Now write your own player class
@@ -49,12 +60,16 @@ Player.prototype.handleInput = function(key) {
         player.x = (player.x + this.speed) % 505;
     } else if (key == 'up') {
         player.y = (player.y - this.speed + 606) % 606;
+        // going to water
         if (player.y <= (83 - 48)) { // line 135 engine.js
             // assuming 48 to be player height
             player.reset();
         }
     } else {
         player.y = (player.y + this.speed) % 606;
+        if (player.y > 400) {
+            player.y = 400;
+        }
     }
 };
 
