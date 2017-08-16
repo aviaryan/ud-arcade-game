@@ -30,10 +30,10 @@ Enemy.prototype.render = function() {
 };
 
 Enemy.prototype.checkCollision = function() {
-    if (player.y + 131 >= this.y + 90
-        && player.y + 73 <= this.y + 135
-        && player.x + 25 <= this.x + 88
-        && player.x + 76 >= this.x + 11) {
+    if (player.y + 131 >= this.y + 90 &&
+        player.y + 73 <= this.y + 135 &&
+        player.x + 25 <= this.x + 88 &&
+        player.x + 76 >= this.x + 11) {
         console.log('collision');
         gameReset();
     }
@@ -79,7 +79,7 @@ Player.prototype.handleInput = function(key) {
 Player.prototype.reset = function() {
     this.x = 202.5;
     this.y = 383;
-}
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
