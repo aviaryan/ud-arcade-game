@@ -29,6 +29,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// checks en enemy's collision with player
 Enemy.prototype.checkCollision = function() {
     if (player.y + 131 >= this.y + 90 &&
         player.y + 73 <= this.y + 135 &&
@@ -52,10 +53,14 @@ var Player = function(x, y, speed) {
 // Update method for Player
 Player.prototype.update = function() {};
 
+// renders the player
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+/*
+ * handles input for the player
+ */
 Player.prototype.handleInput = function(key) {
     if (key == 'left') {
         player.x = (player.x - this.speed + 505) % 505;
@@ -76,6 +81,9 @@ Player.prototype.handleInput = function(key) {
     }
 };
 
+/*
+ * resets the player to default position
+ */
 Player.prototype.reset = function() {
     this.x = 202.5;
     this.y = 383;
@@ -108,8 +116,10 @@ document.addEventListener('keyup', function(e) {
 // increase enemies by score
 var score = 0;
 
+/*
+ * resets the game in case of collision
+ */
 function gameReset() {
-    // resets the game in case of collision
     player.reset();
     score = 0;
     updateDisplay();
@@ -120,8 +130,10 @@ function gameReset() {
     );
 }
 
+/*
+ * game over successfully (reached water)
+ */
 function gameOver() {
-    // game over successfully (reached water)
     player.reset();
     score += 1;
     updateDisplay();
@@ -130,6 +142,9 @@ function gameOver() {
     }
 }
 
+/*
+ * updates the on screen score display
+ */
 function updateDisplay() {
     scoreDiv.innerHTML = 'Score ' + score;
 }
