@@ -63,20 +63,20 @@ Player.prototype.render = function() {
  */
 Player.prototype.handleInput = function(key) {
     if (key == 'left') {
-        player.x = (player.x - this.speed + 505) % 505;
+        this.x = (this.x - this.speed + 505) % 505;
     } else if (key == 'right') {
-        player.x = (player.x + this.speed) % 505;
+        this.x = (this.x + this.speed) % 505;
     } else if (key == 'up') {
-        player.y = (player.y - this.speed + 606) % 606;
+        this.y = (this.y - this.speed + 606) % 606;
         // going to water
-        if (player.y <= (83 - 48)) { // line 135 engine.js
+        if (this.y <= (83 - 48)) { // line 135 engine.js
             // assuming 48 to be player height
             gameOver();
         }
     } else {
-        player.y = (player.y + this.speed) % 606;
-        if (player.y > 400) { // bottom limit
-            player.y = 400;
+        this.y = (this.y + this.speed) % 606;
+        if (this.y > 400) { // bottom limit
+            this.y = 400;
         }
     }
 };
@@ -125,8 +125,8 @@ function gameReset() {
     updateDisplay();
     allEnemies = [];
     allEnemies.push(
-        new Enemy(0, Math.random() * 150 + 20, Math.random() * 100 + 40),
-        new Enemy(0, Math.random() * 150 + 60, Math.random() * 100 + 60)
+        new Enemy(0, Math.random() * 150 + 50, Math.random() * 100 + 40),
+        new Enemy(0, Math.random() * 150 + 70, Math.random() * 100 + 60)
     );
 }
 
@@ -138,7 +138,7 @@ function gameOver() {
     score += 1;
     updateDisplay();
     if (score % 2 == 0 && allEnemies.length < 4) {
-        allEnemies.push(new Enemy(0, Math.random() * 200, Math.random() * 90 + 70));
+        allEnemies.push(new Enemy(0, Math.random() * 160 + 50, Math.random() * 90 + 70));
     }
 }
 
