@@ -72,12 +72,20 @@ Player.prototype.handleInput = function(key) {
         if (this.y <= (83 - 48)) { // line 135 engine.js
             // assuming 48 to be player height
             gameOver();
+            return;
         }
     } else {
         this.y = (this.y + this.speed) % 606;
         if (this.y > 400) { // bottom limit
             this.y = 400;
         }
+    }
+    // x axis wrap
+    if (this.x < 2.5) {
+        this.x = 2.5;
+    }
+    if (this.x > 458) {
+        this.x = 458;
     }
 };
 
