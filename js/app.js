@@ -1,7 +1,10 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -14,6 +17,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x = (this.x + this.speed * dt) % 505;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -24,12 +28,48 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function(x, y, speed) {
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+    this.sprite = 'images/char-boy.png';
+};
 
+// Update method for Player
+Player.prototype.update = function() {};
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Player.prototype.handleInput = function(key) {
+    if (key == 'left') {
+        player.x = (player.x - this.speed + 505) % 505;
+    } else if (key == 'right') {
+        player.x = (player.x + this.speed) % 505;
+    } else if (key == 'up') {
+        player.y = (player.y - this.speed + 606) % 606;
+        if (player.y <= (83 - 48)) { // line 135 engine.js
+            // assuming 48 to be player height
+            player.reset();
+        }
+    } else {
+        player.y = (player.y + this.speed) % 606;
+    }
+};
+
+Player.prototype.reset = function() {
+    this.x = 202.5;
+    this.y = 383;
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-
+var allEnemies = [];
+allEnemies.push(new Enemy(0, 130, 100), new Enemy(0, 170, 120));
+var player = new Player(0, 0, 50);
+player.reset(); // inital position
 
 
 // This listens for key presses and sends the keys to your
