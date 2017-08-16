@@ -86,7 +86,10 @@ Player.prototype.reset = function() {
 // Place the player object in a variable called player
 var allEnemies = [];
 var player = new Player(0, 0, 50);
-gameReset();
+var scoreDiv = document.createElement('div');
+gameReset(); // setup defaults
+var canvasDiv = document.getElementsByTagName('canvas')[0];
+document.body.insertBefore(scoreDiv, canvasDiv);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -109,6 +112,7 @@ function gameReset() {
     // resets the game in case of collision
     player.reset();
     score = 0;
+    updateDisplay();
     allEnemies = [];
     allEnemies.push(
         new Enemy(0, Math.random() * 150 + 20, Math.random() * 100 + 40),
@@ -120,7 +124,12 @@ function gameOver() {
     // game over successfully (reached water)
     player.reset();
     score += 1;
+    updateDisplay();
     if (score % 2 == 0 && allEnemies.length < 4) {
         allEnemies.push(new Enemy(0, Math.random() * 200, Math.random() * 90 + 70));
     }
+}
+
+function updateDisplay() {
+    scoreDiv.innerHTML = 'Score ' + score;
 }
